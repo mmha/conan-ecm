@@ -2,13 +2,13 @@ from conans import ConanFile, CMake
 import os
 
 class ExtraCMakeModulesTestConan(ConanFile):
-    settings = "compiler", "build_type", "arch"
+    settings = "os", "compiler", "arch", "build_type"
     generators = "cmake"
 
     def build(self):
         cmake = CMake(self)
         # Current dir is "test_package/build/<build_id>" and CMakeLists.txt is in "test_package"
-        cmake.configure(source_dir=self.conanfile_directory, build_dir="./")
+        cmake.configure()
         cmake.build()
 
     def imports(self):

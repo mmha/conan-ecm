@@ -1,1 +1,3 @@
-#include <iostream>
+int success() {
+	return 0;
+}

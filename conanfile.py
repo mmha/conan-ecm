@@ -3,12 +3,12 @@ from conans import ConanFile, CMake, tools
 
 class ExtraCMakeModulesConan(ConanFile):
     name = "extra-cmake-modules"
-    version = "5.41.0"
+    version = "5.53.0"
     license = "BSD 3-Clause"
     url = "https://api.kde.org/frameworks/extra-cmake-modules/html/index.html"
-    settings = "compiler", "build_type", "arch"
+    settings = "os", "compiler", "arch", "build_type"
     description = "Extra CMake modules"
-    generators = "cmake"
+    no_copy_source = True
 
     def source(self):
         shortened_version = self.version.rpartition('.')[0]
@@ -18,12 +18,12 @@ class ExtraCMakeModulesConan(ConanFile):
 
     def build(self):
         cmake = CMake(self)
-
-        cmake.definitions['CMAKE_INSTALL_PREFIX'] = self.package_folder
-        cmake.definitions['BUILD_HTML_DOCS'] = 0
-        cmake.definitions['BUILD_QTHELP_DOCS'] = 0
-        cmake.definitions['BUILD_TESTING'] = 0
-
+        cmake.definitions['BUILD_HTML_DOCS'] = False
+        cmake.definitions['BUILD_QTHELP_DOCS'] = False
         cmake.configure(source_dir="%s/%s-%s" % (self.source_folder, self.name, self.version))
         cmake.build()
+        cmake.test()
         cmake.install()
+
+    def package_id(self):
+        self.info.header_only()
