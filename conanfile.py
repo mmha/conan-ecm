@@ -3,7 +3,7 @@ from conans import ConanFile, CMake, tools
 
 class ExtraCMakeModulesConan(ConanFile):
     name = "extra-cmake-modules"
-    version = "5.53.0"
+    version = "5.56.0"
     license = "BSD 3-Clause"
     url = "https://api.kde.org/frameworks/extra-cmake-modules/html/index.html"
     settings = "os", "compiler", "arch", "build_type"
